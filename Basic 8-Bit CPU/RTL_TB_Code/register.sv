@@ -22,4 +22,4 @@ module register (
     else if (enable) out <= data; 
     else             out <= out;  
   end
-endmodule
+endmodule : register
