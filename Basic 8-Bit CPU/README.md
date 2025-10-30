@@ -1,8 +1,9 @@
-
 # Introduction
-<img width="856" height="866" alt="image" src="https://github.com/user-attachments/assets/c4fc3f01-5db1-4b36-a92b-3a9e48f72703" />
+- This project implements a tiny **8-bit accumulator CPU** with a **single unified memory** for instructions and data.
+- The design is fully synchronous (active-low reset) and runs a simple **two-phase Fetch/Execute** sequence controlled by a finite-state machine.
 
-This project implements a tiny **8-bit accumulator CPU** with a **single unified memory** for instructions and data. The design is fully synchronous (active-low reset) and runs a simple **two-phase Fetch/Execute** sequence controlled by a finite-state machine.
+## Architecture
+<img width="750" alt="image" src="https://github.com/user-attachments/assets/941ea950-3067-4ebb-96a6-167df06e5b08">
 
 ## Datapath & flow
 - The core consists of an **Accumulator (ACC)**, **ALU**, **Instruction Register (IR)**, **Program Counter (PC)**, an **address MUX**, and a **synchronous memory**.
