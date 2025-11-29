@@ -56,5 +56,7 @@ Generates the reference output/value, which is compared with the actual output r
 ### Scoreboard
 Compares the actual packet and the reference packet and generates report for all the test cases.
 
+# UVM Testbench
+<img width="1006" height="715" alt="APB_TB_arch" src="https://github.com/user-attachments/assets/cff2324b-cbd8-4cf5-b65d-eb1830c33ec6" />
 
 
