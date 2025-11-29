@@ -42,7 +42,7 @@ Drives the packet according to the APB protocol. The drive seqeunce is as follow
 
 <img width="433" height="776" alt="driver" src="https://github.com/user-attachments/assets/e09ad923-7eff-43a5-b7e1-cba2c1304ee2" />
 
-F> ig. 2: Driver Flow
+> Fig. 2: Driver Flow
 
 ### Input Monitor
 Monitors the input signals of the APB protocol and when a complete transaction is monitored, it sends the sampled packet to reference model, which generates the expected value.
