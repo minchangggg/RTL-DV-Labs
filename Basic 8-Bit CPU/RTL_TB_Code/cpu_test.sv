@@ -43,63 +43,69 @@ initial
 	$timeformat (-9, 1, " ns", 12);
 
 
-initial
-	forever begin
-		$display ("");
-		$display ("***********************************************");
-		$display ("THE FOLLOWING DEBUG TASKS ARE AVAILABLE");
-		$display ("1. The basic CPU diagnostic");
-		$display ("2. The advanced CPU diagnotic");
-		$display ("3. The Fibonacci program");
-		$display ("***********************************************");
-		$display ("");
-		$display ("Enter 'deposit test_number # ; run' \n");
-		$stop;
-		
-		if (test_number > 3) begin
-			$display ("Test num %d is not between 1 and 3", test_number);
-		end else begin
-			case (test_number)
-				1: begin
-					$display ("CPUtest1 - BASIC CPU DIAGNOSTIC PROGRAM \n");
-					$display ("THIS TEST SHOULD HALT WITH THE PC AT 17 hex \n");
-				end
-				2: begin
-					$display ("CPUtest2 - ADVANCED CPU DIAGNOSTIC PROGRAM \n");
-					$display ("THIS TEST SHOULD HALT WITH THE PC AT 10 hex \n");
-				end
-				3: begin
-					$display ("CPUtest1 - FIBONACCI NUMBER to 144 \n");
-					$display ("THIS TEST SHOULD HALT WITH THE PC AT OC hex \n");
-				end
-			endcase
-			testfile = {"CPUtest", 8'h30+test_number[7:0], ".dat"};
-			$readmemb (testfile, cpu1.mem1.memory);
-			rst_ = 1;
-			repeat (2) @(negedge master_clk);
-			rst_ = 0;
-			repeat (2) @(negedge master_clk);
-			rst_ = 1;
-			$display ("	TIME	PC	INSTR	OP	ADDR	DATA\n");
-			$display ("     ----	--	-----	--	----	----\n");
-			while (!halt)
-				@(posedge clk);
-				if (load_ir) begin
-					#(`PERIOD/2)
-					topcode = cpu1.opcode;
-					$display (" %t %h %s %h %h %h %h", $time, cpu1.pc_addr, topcode.name(), cpu1.opcode, cpu1.addr, cpu1.alu_out, cpu1.data_out);
-					if ((test_number == 3) && (topcode == JMP))
-						$display ("Next Fibonacci number is %d", cpu1.mem1.memory[5'h1B]);
-				end
-			if (test_number == 1 && cpu1.pc_addr != 5'h17
-			  ||test_number == 2 && cpu1.pc_addr != 5'h10
-			  ||test_number == 3 && cpu1.pc_addr != 5'h0C
-			  ||cpu1.pc_addr === 5'hXX) begin
-				$display ("CPU TEST %d FAILED with pc_addr at %h", test_number, cpu1.pc_addr);
-				$finish;
-			end
-			$display ("\n CPU TEST %0d PASSED", test_number);
-		end
-	end
+initial begin
+	$display ("");
+	$display ("***********************************************");
+	$display ("THE FOLLOWING DEBUG TASKS ARE AVAILABLE");
+	$display ("1. The basic CPU diagnostic");
+	$display ("2. The advanced CPU diagnotic");
+	$display ("3. The Fibonacci program");
+	$display ("***********************************************");
+	$display ("");
+
+    // set test_number mặc định (hoặc dùng plusarg)
+    test_number = 32'd3; // 1,2,3 tương ứng CPUtest1/2/3
+    rst_ = 0;
+
+    if (test_number > 3) begin
+        $display ("Test num %d is not between 1 and 3", test_number);
+    end else begin
+        case (test_number)
+            1: begin
+                $display ("CPUtest1 - BASIC CPU DIAGNOSTIC PROGRAM \n");
+                $display ("THIS TEST SHOULD HALT WITH THE PC AT 17 hex \n");
+            end
+            2: begin
+                $display ("CPUtest2 - ADVANCED CPU DIAGNOSTIC PROGRAM \n");
+                $display ("THIS TEST SHOULD HALT WITH THE PC AT 10 hex \n");
+            end
+            3: begin
+                $display ("CPUtest3 - FIBONACCI NUMBER to 144 \n");
+                $display ("THIS TEST SHOULD HALT WITH THE PC AT 0C hex \n");
+            end
+        endcase
+
+        testfile = {"CPUtest", 8'h30+test_number[7:0], ".dat"};
+        $readmemb (testfile, cpu1.mem1.memory);
+
+        // reset sequence như cũ
+        rst_ = 1;
+        repeat (2) @(negedge master_clk);
+        rst_ = 0;
+        repeat (2) @(negedge master_clk);
+        rst_ = 1;
+
+        $display ("	TIME	PC	INSTR	OP	ADDR	DATA\n");
+        $display ("     ----	--	-----	--	----	----\n");
+        while (!halt)
+            @(posedge clk);
+            if (load_ir) begin
+                #(`PERIOD/2)
+                topcode = cpu1.opcode;
+                $display (" %t %h %s %h %h %h %h", $time, cpu1.pc_addr, topcode.name(), cpu1.opcode, cpu1.addr, cpu1.alu_out, cpu1.data_out);
+                if ((test_number == 3) && (topcode == JMP))
+                    $display ("Next Fibonacci number is %d", cpu1.mem1.memory[5'h1B]);
+            end
+
+        if (test_number == 1 && cpu1.pc_addr != 5'h17
+         ||test_number == 2 && cpu1.pc_addr != 5'h10
+         ||test_number == 3 && cpu1.pc_addr != 5'h0C
+         ||cpu1.pc_addr === 5'hXX) begin
+            $display ("CPU TEST %d FAILED with pc_addr at %h", test_number, cpu1.pc_addr);
+            $finish;
+        end
+        $display ("\n CPU TEST %0d PASSED", test_number);
+    end
+end
 
 endmodule
