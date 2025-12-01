@@ -54,7 +54,7 @@ initial begin
 	$display ("");
 
     // set test_number mặc định (hoặc dùng plusarg)
-    test_number = 32'd3; // 1,2,3 tương ứng CPUtest1/2/3
+    test_number = 32'd1; // 1,2,3 tương ứng CPUtest1/2/3
     rst_ = 0;
 
     if (test_number > 3) begin
