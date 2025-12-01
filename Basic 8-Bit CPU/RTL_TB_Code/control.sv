@@ -31,34 +31,39 @@ always_ff @ (posedge clk or negedge rst_)
 always_comb begin
 	{mem_rd, load_ir, halt, inc_pc, load_ac, load_pc, mem_wr} = 7'b000_0000;
 	unique case (state)
-		INST_ADDR : ;
+		INST_ADDR: ;
 		INST_FETCH: mem_rd = 1;
-		INST_LOAD: begin
+		INST_LOAD: 
+			begin
 				mem_rd  = 1;
 				load_ir = 1;
-			   end
-		IDLE     : begin
+			end
+		IDLE: 
+			begin
 				mem_rd  = 1;
 				load_ir = 1;
-			   end
-		OP_ADDR  : begin
+			end
+		OP_ADDR: 
+			begin
 				inc_pc = 1;
 				halt = (opcode == HLT);
-			   end
-		OP_FETCH : mem_rd = aluop;
-		ALU_OP   : begin
+			end
+		OP_FETCH: mem_rd = aluop;
+		ALU_OP: 
+			begin
 				load_ac = aluop;
 				mem_rd  = aluop;
 				inc_pc  = ((opcode == SKZ) && zero);
 				load_pc = (opcode == JMP);
-  			   end
-		STORE   : begin
+  			end
+		STORE: 
+			begin
 				load_ac = aluop;
 				mem_rd  = aluop;
 				inc_pc  = (opcode == JMP);
 				load_pc = (opcode == JMP);
 				mem_wr  = (opcode == STO);
-  			   end
+  			end
 
 	endcase
 end

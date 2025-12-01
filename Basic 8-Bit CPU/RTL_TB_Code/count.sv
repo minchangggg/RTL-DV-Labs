@@ -1,10 +1,10 @@
 module count (
-	input	logic	[4:0]	data,
-	input	logic		load,
-	input 	logic		clk,
-	input 	logic		enable,
-	input 	logic		rst_,
-	output	logic	[4:0]	count
+	input  logic [4:0] data,
+	input  logic	   load,
+	input  logic	   clk,
+	input  logic	   enable,
+	input  logic	   rst_,
+	output logic [4:0] count
 );
 
 timeunit 1ns;

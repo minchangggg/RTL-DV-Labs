@@ -4,13 +4,13 @@ timeprecision 100ps;
 
 import typedefs::*;
 
-logic	rst_;
-opcode_t	topcode;
-logic clk, alu_clk, cntrl_clk, clk2, fetch, halt;
-logic load_ir;
-logic [31:0] test_number;
+logic	       rst_;
+opcode_t	   topcode;
+logic          clk, alu_clk, cntrl_clk, clk2, fetch, halt;
+logic          load_ir;
+logic [31:0]   test_number;
 logic [12*8:1] testfile;
-logic [3:0] count;
+logic [3:0]    count;
 
 // Clock generator
 `define PERIOD 10

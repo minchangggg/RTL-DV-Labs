@@ -15,8 +15,8 @@ import typedefs::*;
 
 logic [7:0] data_out, alu_out, accum, ir_out;
 logic [4:0] pc_addr, ir_addr, addr;
-opcode_t opcode;
-logic load_ac, mem_rd, mem_wr, inc_pc, load_pc, zero;
+opcode_t    opcode;
+logic       load_ac, mem_rd, mem_wr, inc_pc, load_pc, zero;
 
 register ac (
 	.out (accum),
