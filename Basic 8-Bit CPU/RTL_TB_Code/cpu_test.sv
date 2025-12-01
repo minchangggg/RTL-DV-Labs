@@ -26,7 +26,7 @@ always @ (posedge master_clk or negedge rst_)
 
 assign cntrl_clk = ~count[0];
 assign clk       = count[1];
-assign fetch     =~count[3];
+assign fetch     = ~count[3];
 assign alu_clk   = ~(count == 4'hc);
 
 cpu cpu1 (
@@ -47,14 +47,14 @@ initial begin
 	$display ("");
 	$display ("***********************************************");
 	$display ("THE FOLLOWING DEBUG TASKS ARE AVAILABLE");
-	$display ("1. The basic CPU diagnostic");
-	$display ("2. The advanced CPU diagnotic");
-	$display ("3. The Fibonacci program");
+	$display ("1 -> CPUtest1 : Basic CPU diagnostic");
+	$display ("2 -> CPUtest2 : Advanced CPU diagnostic");
+	$display ("3 -> CPUtest3 : Fibonacci program");
 	$display ("***********************************************");
 	$display ("");
 
     // set test_number mặc định (hoặc dùng plusarg)
-    test_number = 32'd1; // 1,2,3 tương ứng CPUtest1/2/3
+    test_number = 32'd1; // 1, 2, 3 correspond to CPUtest1, CPUtest2, and CPUtest3.
     rst_ = 0;
 
     if (test_number > 3) begin
@@ -78,7 +78,7 @@ initial begin
         testfile = {"CPUtest", 8'h30+test_number[7:0], ".dat"};
         $readmemb (testfile, cpu1.mem1.memory);
 
-        // reset sequence như cũ
+        // reset sequence
         rst_ = 1;
         repeat (2) @(negedge master_clk);
         rst_ = 0;
@@ -98,9 +98,9 @@ initial begin
             end
 
         if (test_number == 1 && cpu1.pc_addr != 5'h17
-         ||test_number == 2 && cpu1.pc_addr != 5'h10
-         ||test_number == 3 && cpu1.pc_addr != 5'h0C
-         ||cpu1.pc_addr === 5'hXX) begin
+            ||test_number == 2 && cpu1.pc_addr != 5'h10
+            ||test_number == 3 && cpu1.pc_addr != 5'h0C
+            ||cpu1.pc_addr === 5'hXX) begin
             $display ("CPU TEST %d FAILED with pc_addr at %h", test_number, cpu1.pc_addr);
             $finish;
         end
