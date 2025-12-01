@@ -1,17 +1,17 @@
 import typedefs::*;
 
 module control (
-	input	opcode_t 	opcode,
-	input 	logic		zero,
-	input 	logic		clk,
-	input 	logic		rst_,
-	output	logic		load_ac,
-	output	logic		mem_rd,
-	output	logic		mem_wr,
-	output	logic		inc_pc,
-	output	logic		load_pc,
-	output	logic		load_ir,
-	output	logic		halt
+	input  opcode_t opcode,
+	input  logic	zero,
+	input  logic	clk,
+	input  logic    rst_,
+	output logic    load_ac,
+	output logic	mem_rd,
+	output logic	mem_wr,
+	output logic	inc_pc,
+	output logic	load_pc,
+	output logic	load_ir,
+	output logic	halt
 );
 
 timeunit 1ns;
