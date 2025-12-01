@@ -17,4 +17,14 @@
 - Synthesizable building blocks: `mem.sv` (synchronous memory), `alu.sv` (ADD/AND/XOR + zero flag), `count.sv` (PC), `register.sv` (generic reg for ACC/IR), `scale_mux.sv` (address/data MUX), and a `control` FSM sequencing the states.
 - Memory width/depth are parameterizable; sample programs are provided in `CPUtest*.dat`.
 
+## Result simulation
+### DEBUG TASKS 1. The basic CPU diagnostic
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0b8ab172-bd7e-4199-b0c4-9303af498fd4" />
+
+### DEBUG TASKS 2. The advanced CPU diagnotic
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/10eb72d2-9f01-4639-84bb-3d91471bc7f9" />
+
+### DEBUG TASKS 3. The Fibonacci program
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a8ce23ad-7be9-4653-942f-561c2fe80e61" />
+
 
